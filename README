@@ -1,0 +1,46 @@
+# SSL Checker Tool
+
+This tool checks the SSL handshake and performs certificate pinning for a given website.
+
+## Prerequisites
+
+Before running the tool, make sure you have the following prerequisites installed:
+
+- [Python](https://www.python.org/) (version 3.6 or higher)
+
+## Installation
+
+1. Clone this repository to your local machine:
+
+    ```bash
+    git clone https://github.com/your-username/ssl-checker-tool.git
+    ```
+
+2. Navigate to the project directory:
+
+    ```bash
+    cd ssl-checker-tool
+    ```
+
+3. Optionally, create and activate a virtual environment to isolate dependencies:
+
+    ```bash
+    python -m venv venv
+    source venv/bin/activate  # For Linux/macOS
+    venv\Scripts\activate  # For Windows
+    ```
+
+    **Note:** Virtual environment activation is optional but recommended for dependency isolation.
+
+4. Install the required dependencies using `pip`:
+
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+## Usage
+
+Replace the placeholder URL in the script with the website you want to check. Run the script using the following command:
+
+```bash
+python ssl_checker.py
