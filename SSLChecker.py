@@ -1,18 +1,18 @@
 import ssl
 import requests
 from requests.exceptions import SSLError, ConnectionError
-from urllib.parse import urlparse  # Import urlparse for parsing URLs
+from urllib.parse import urlparse  # Import urlparse for parsing URLs.
 
 def check_ssl_handshake(url):
     try:
         response = requests.get(url)
-        response.raise_for_status()  # Raise an error for bad responses
+        response.raise_for_status()  # Raise an error for bad responses.
         print(f"SSL Handshake for {url} is successful.")
         return response
-    except SSLError as e:  # Raise an error for wrong handshake
+    except SSLError as e:  # Raise an error for wrong handshake.
         print(f"SSL Handshake failed for {url}. Error: {e}")
         return None
-    except ConnectionError as e:  # Raise an error for wrong communication
+    except ConnectionError as e:  # Raise an error for wrong communication.
         print(f"Connection error for {url}. Error: {e}")
         return None
 
@@ -21,7 +21,7 @@ def check_certificate_pinning(url, pinned_certificate_path):
 
     if response:
         try:
-            # Extract the domain from the URL
+            # Extract the domain from the URL.
             parsed_url = urlparse(url)
             domain = parsed_url.netloc
 
@@ -48,7 +48,7 @@ def check_certificate_pinning(url, pinned_certificate_path):
             print(f"Connection error for {url}. Error: {e}")
 
 if __name__ == "__main__":
-    url_to_check = "https://tesselaarbv.nl"
-    pinned_certificate_path = "server_certificate.pem"
+    url_to_check = "https://tesselaarbv.nl"  # Specify the website u want to check here. https://..
+    pinned_certificate_path = "server_certificate.pem"  # Specify the correct path to pem file.
 
     check_certificate_pinning(url_to_check, pinned_certificate_path)

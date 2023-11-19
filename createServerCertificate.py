@@ -14,15 +14,15 @@ def get_server_certificate(server_host, server_port):
 
 def write_certificate_to_file(cert, filename):
     try:
-        with open(filename, 'w') as file:
+        with open(filename, 'w') as file: # Write your specified URL servercertificate to pem file.
             file.write(cert)
         return f"Certificate written to {filename} successfully."
     except Exception as e:
         return f"Error writing to file: {e}"
 
 if __name__ == "__main__":
-    server_host = "tesselaarbv.nl"
-    server_port = 443
+    server_host = "tesselaarbv.nl" # Specify your domain here. (not URL )
+    server_port = 443  # Specify server port so ssl can understand.
 
     server_certificate = get_server_certificate(server_host, server_port)
 
