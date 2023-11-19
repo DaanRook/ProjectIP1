@@ -41,7 +41,6 @@ def check_certificate_pinning(url, pinned_certificate_path):
                 print(f"Certificate pinning for {url} is successful.")
             else:
                 print(f"Certificate pinning failed for {url}.")
-                print(cert)
         except SSLError as e:
             print(f"SSL Handshake failed for {url}. Error: {e}")
         except ConnectionError as e:
