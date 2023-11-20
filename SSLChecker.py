@@ -2,24 +2,34 @@ import ssl
 import requests
 from requests.exceptions import SSLError, ConnectionError
 from urllib.parse import urlparse  # Import urlparse for parsing URLs.
+import socket
+    
+def check_ssl_handshake(URL):  # SSL version added after deadline :(
+                               # Made a mistake/oversight
+    # Extract the domain from the URL.
+    parsed_url = urlparse(URL)
+    domain = parsed_url.netloc
+    port = "443"
 
-def check_ssl_handshake(url):
     try:
-        response = requests.get(url)
-        response.raise_for_status()  # Raise an error for bad responses.
-        print(f"SSL Handshake for {url} is successful.")
-        return response
-    except SSLError as e:  # Raise an error for wrong handshake.
-        print(f"SSL Handshake failed for {url}. Error: {e}")
-        return None
-    except ConnectionError as e:  # Raise an error for wrong communication.
-        print(f"Connection error for {url}. Error: {e}")
+        # Create an SSL context
+        context = ssl.create_default_context()
+
+        # Wrap the socket with SSL
+        with socket.create_connection((domain, port)) as sock:
+            with context.wrap_socket(sock, server_hostname=domain) as ssock:
+                print("SSL handshake successful")
+                print("Cipher: {}".format(ssock.cipher()))
+                print("SSL Version: {}".format(ssock.version()))
+                return ssock  # Return the SSL socket
+    except ssl.SSLError as e:
+        print("SSL Handshake failed:", e)
         return None
 
-def check_certificate_pinning(url, pinned_certificate_path):
-    response = check_ssl_handshake(url)
+def check_certificate_pinning(url, pinned_certificate_path):  
+    ssl_socket = check_ssl_handshake(url)                     
 
-    if response:
+    if ssl_socket:
         try:
             # Extract the domain from the URL.
             parsed_url = urlparse(url)
